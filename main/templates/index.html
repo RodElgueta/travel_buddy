@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block titulo %}Travel Buddy{% endblock %}
+
+{% block contenido %}
+<div class="row">
+    <div class="col-7 offset-2 mt-5">
+        <h4>Your Trips Schedules</h4>
+        <ul>
+            <li>
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
+                            <th scope="col">Plan</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                        {%for trip in my_trips%}
+                        <tr>
+                            <td><a href="destination/{{trip.id}}">{{trip.dest}}</td>
+                            <td>{{trip.date_from}}</td>
+                            <td>{{trip.date_to}}</td>
+                            <td>{{trip.plan}}</td>
+                            <td><a href="cancel/{{trip.id}}">Cancel</a>{%if trip.creator.id == request.session.user.id%}<a class="ms-2"href="delete">Delete</a>{%endif%}</td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-7 offset-2 mt-5">
+        <h4>Other Users Travel Plans</h4>
+        <ul>
+            <li>
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
+                            <th scope="col">Do You Want to Join</th>
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                        {%for trip in other_trips%}
+                        <tr>
+                            <td>{{trip.creator.name}}</td>
+                            <td><a href="destination/{{trip.id}}">{{trip.dest}}</a></td>
+                            <td>{{trip.date_from}}</td>
+                            <td>{{trip.date_to}}</td>
+                            <td><a href="join/{{trip.id}}">Join</a></td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block libreria %}
+{% endblock %}

@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+
+{%block contenido%}
+<form class="col-4 mt-5" action="add" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="" class="form-label">Destination</label>
+        <input type="text" class="form-control" id="" aria-describedby="" name="dest" required>
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Description</label>
+        <input type="text" class="form-control" id="" aria-describedby="" name="plan" required>
+    </div>
+    <div class="col-4 mb-3">
+        <label for="" class="form-label">Travel Date From:</label>
+        <input type="date" class="form-control" id="date" value="2021-09-10" name="date_from">
+    </div>
+    <div class="col-4 mb-3">
+        <label for="" class="form-label">Travel Date To:</label>
+        <input type="date" class="form-control" id="date" value="2021-09-10" name="date_to">
+    </div>
+    <div class="input-field col-8">
+        
+        <p class="text-center"></p><button type="submit" class="btn btn-primary">Add</button></p>
+    </div>
+</form>
+{% endblock %}

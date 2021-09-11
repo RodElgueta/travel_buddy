@@ -1,0 +1,23 @@
+{%extends 'base.html'%}
+
+{%block contenido%}
+
+<div class="col-6 mt-5">
+    <h3>{{trip.dest}}</h3>
+    <h4 class="ms-2">Planned by:  {{trip.creator.name}}</h4>
+    <h4 class="ms-2">Description:  {{trip.plan}}</h4>
+    <h4 class="ms-2">Travel Date From:  {{trip.date_from}}</h4>
+    <h4 class="ms-2">Travel Date To:  {{trip.date_to}}</h4>
+</div>
+
+
+<div class="mt-5">
+    <h3 class="mt-5">Other User's joining the trip:</h3>
+    <ul>
+        {%for traveller in others%}
+        <li>{{traveller.name}}</li>
+        {%endfor%}
+    </ul>
+</div>
+
+{%endblock%}
