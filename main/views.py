@@ -11,6 +11,7 @@ def index(request):
 
     triplist = Trips.objects.filter(travellers__id=int(request.session['user']['id'])) | Trips.objects.exclude(travellers__id=int(request.session['user']['id'])).filter(creator=int(request.session['user']['id']))
     finallist = list(set(triplist))
+    
 
     context = {
         'my_trips': finallist,
