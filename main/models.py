@@ -11,19 +11,19 @@ class UserManager(models.Manager):
         errors = {}
 
         if len(postData['name']) < 4:
-            errors['firstname_len'] = "nombre debe tener al menos 4 caracteres de largo";
+            errors['firstname_len'] = "Name at least 4 characters";
 
         if not EMAIL_REGEX.match(postData['email']):
-            errors['email'] = "correo invalido"
+            errors['email'] = "Invalid mail"
 
         if not SOLO_LETRAS.match(postData['name']):
-            errors['solo_letras'] = "solo letras en nombreporfavor"
+            errors['solo_letras'] = "Only letters on name pls"
 
         if len(postData['password']) < 8:
-            errors['password'] = "contraseña debe tener al menos 8 caracteres";
+            errors['password'] = "Password at least 8 characters";
 
         if postData['password'] != postData['password_confirm'] :
-            errors['password_confirm'] = "contraseña y confirmar contraseña no son iguales. "
+            errors['password_confirm'] = "Password and Password confirm dont coincide "
 
         
         return errors
@@ -31,10 +31,19 @@ class UserManager(models.Manager):
 class TripManager(models.Manager):
     def basic_valid(self,postData):
         errors = {}
+
+        if len(postData['dest']) < 3:
+            errors['dest'] = "Your Destiny should have more than 3 letters"
+        
+        if len(postData['plan']) < 10:
+            errors['plan'] = "Your travel Plan should be at least 10 characters"
+
         if datetime.strptime(postData['date_from'],"%Y-%m-%d").date() < datetime.today().date():
             errors['date'] = "Please Trip start Date Cant be in the past"
+        
         if datetime.strptime(postData['date_to'],"%Y-%m-%d").date() < datetime.strptime(postData['date_from'],"%Y-%m-%d").date():
             errors['date'] = "Please Trip to Date Cant be before Trip Start Date"
+        
         return errors
 
 class User(models.Model):

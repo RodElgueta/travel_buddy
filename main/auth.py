@@ -27,12 +27,12 @@ def login(request):
                 }
 
                 request.session['user'] = user
-                messages.success(request, "Logueado correctamente.")
+                messages.success(request, "Succesfull Login")
                 return redirect("/")
             else:
-                messages.error(request, "Password o Email  incorrectos.")
+                messages.error(request, "Password or Email Wrong")
         else:
-            messages.error(request, "Email o password incorrectos.")
+            messages.error(request, "Email or password Wrong.")
 
 
 
@@ -66,7 +66,7 @@ def registro(request):
                 role=request.POST['role']
             )
 
-            messages.success(request, "El usuario fue agregado con exito.")
+            messages.success(request, "User has been created")
             
 
             request.session['user'] = {

@@ -4,11 +4,30 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block titulo %}{% endblock %}</title>
+  <title>{% block titulo %}Travel Buddy{% endblock %}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body style="background-image: url('https://img.wallpapersafari.com/desktop/1920/1080/25/63/p7d93q.jpg');">
+  <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                
+                <a id="modalbutton" href="#" role="button" type="button" class="btn btn-primary" aria-pressed="true">Save changes</a>
+                
+            </div>
+        </div>
+    </div>
+  </div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Travel Buddy</a>
@@ -41,8 +60,8 @@
         <div class="d-flex">
           {%if request.session.user is not None%}
           <p class="navbar-brand navbar-text me-2 mb-2 mb-lg-0 text-light" aria-current="page">Welcome {{request.session.user.name}}</p>
-          <a class="btn btn-outline-primary me-2" href="/add">Add Travel Plan</a>
-          <a class="btn btn-outline-success" href="/logout">Logout</a>
+          <a class="btn btn-outline-success me-2" href="/add">Add Travel Plan</a>
+          <a class="btn btn-outline-info" href="/logout">Logout</a>
           {%else%}
           <p class="navbar-brand navbar-text me-2 mb-2 mb-lg-0 text-light" aria-current="page">Please</p>
           <a class="btn btn-outline-success" href="/login">Log-in</a>
@@ -57,15 +76,27 @@
   </div>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  <script>
+    $(".btndelete").on("click",function(){
+        const url=$(this).attr("data-url")
+        
+        $("#modalbutton").attr("href",url)
+    })
+  </script>
 
   <script>
     toastr.options = {
-      "closeButton": true,
-      "progressBar": true,
-    }
+            "closeButton": true,
+            "progressBar": true,
+            "timeOut" : 4000,
+            "extenderTimeOut": 1000,
+            "positionClass": "toast-top-center",
+            
+        }
 
     {% if messages %}
       {% for message in messages %}

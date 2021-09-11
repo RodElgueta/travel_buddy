@@ -2,7 +2,7 @@
 
 {%block contenido%}
 
-<div class="col-6 mt-5">
+<div class="col-6 mt-5 offset-1">
     <h3>{{trip.dest}}</h3>
     <h4 class="ms-2">Planned by:  {{trip.creator.name}}</h4>
     <h4 class="ms-2">Description:  {{trip.plan}}</h4>
@@ -11,7 +11,7 @@
 </div>
 
 
-<div class="mt-5">
+<div class="mt-5 offset-1">
     <h3 class="mt-5">Other User's joining the trip:</h3>
     <ul>
         {%for traveller in others%}

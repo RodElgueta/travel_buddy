@@ -11,11 +11,12 @@ def index(request):
 
     triplist = Trips.objects.filter(travellers__id=int(request.session['user']['id'])) | Trips.objects.exclude(travellers__id=int(request.session['user']['id'])).filter(creator=int(request.session['user']['id']))
     finallist = list(set(triplist))
-    
+    user = User.objects.get(id=int(request.session['user']['id']))
 
     context = {
         'my_trips': finallist,
-        'other_trips' : Trips.objects.exclude(travellers__id=int(request.session['user']['id']))
+        'other_trips' : Trips.objects.exclude(travellers__id=int(request.session['user']['id'])),
+        'user' : user
     }
     #import pdb; pdb.set_trace()
     return render(request, 'index.html', context)
@@ -40,25 +41,28 @@ def add(request):
     
     newtrip = Trips.objects.create(dest=request.POST['dest'],plan=request.POST['plan'],date_from=request.POST['date_from'],date_to=request.POST['date_to'],creator=User.objects.get(id=int(request.session['user']['id'])))
     newtrip.travellers.add(User.objects.get(id=int(request.session['user']['id'])))
-    messages.success(request,"Trip has been Succesfull")
+    messages.success(request,"Trip has been Succesfully created")
     return redirect('/')
 
 @login_required
 def join(request,tripid):
     trip = Trips.objects.get(id=tripid)
     trip.travellers.add(User.objects.get(id=int(request.session['user']['id'])))
+    messages.success(request,f"Succesfully Joined the Trip")
     return redirect('/')
 
 @login_required
 def cancel(request,tripid):
     trip = Trips.objects.get(id=tripid)
     trip.travellers.remove(User.objects.get(id=int(request.session['user']['id'])))
+    messages.warning(request,"You Left The Trip")
     return redirect('/')
 
 @login_required
 def delete(request,tripid):
     trip = Trips.objects.get(id=tripid)
     trip.delete()
+    messages.warning(request,"Trip Deleted")
     return redirect('/')
 
 

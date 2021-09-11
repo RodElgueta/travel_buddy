@@ -10,11 +10,11 @@
 </head>
 <body>
 
-  <div class="container">
+  <div class="container-fluid">
     <div class="container mt-3">
       <div class="row">
         <div class="col-5">
-          <h1>LOGIN DESDE BASE</h1>
+          <h1>Login Travel Buddy</h1>
     
           <form method="POST">
             {% csrf_token %}
@@ -23,15 +23,15 @@
                 <input type="text" class="form-control" id="email" name="email" value="{{request.session.login_email}}">
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
+                <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password">
             </div>
-            <button type="submit" class="btn btn-primary">Ingresar</button>
+            <button type="submit" class="btn btn-primary">Log in</button>
           </form>
         </div>
       </div>
       <div>
-        <a href="/registro">Registrarse</a>
+        <a href="/registro">Register</a>
       </div>
     </div>
   </div>
